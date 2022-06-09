@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,49 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Public API
+/*
+Route::get('/students',[StudentController::class,'index']);
+Route::get('/students/{id}',[StudentController::class,'showSingleRecord']);
+Route::post('/students',[StudentController::class,'storeRecord']);
+Route::put('/students/{id}',[StudentController::class,'updateRecord']);
+Route::delete('/students/{id}',[StudentController::class,'deleteRecord']);
+*/
+
+
+//Group Routes Contrller
+/*
+Route::controller(StudentController::class)->group(function(){
+    
+    Route::get('/students/{id}','showSingleRecord');
+    Route::post('/students','storeRecord');
+    Route::put('/students/{id}','updateRecord');
+    Route::delete('/students','deleteRecord');
 });
+*/
+
+//API using sanctum,reister and login are public
+Route::controller(StudentController::class)->group(function(){
+    Route::post('/register','register');
+    Route::post('/login','login');
+    Route::get('/students','index');
+    Route::get('students/{id}','showSingleRecord');
+});
+
+//Insert,update,delete are authenticated
+Route::middleware('auth:sanctum')->group(function(){
+    Route::controller(StudentController::class)->group(function(){
+        Route::put('/students/{id}','updateRecord');
+        Route::delete('/students/{id}','deleteRecord');
+        Route::get('logout','logout');
+        
+
+
+    });
+});
+
+
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
