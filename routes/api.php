@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EnjayApiDataController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,14 @@ Route::middleware('auth:sanctum')->group(function(){
 
     });
 });
+
+Route::post('endpoint/sriramhardware',[EnjayApiDataController::class,'storeData']);
+// Route::match(['get','post'],'endpoint/sriramhardware',[EnjayApiDataController::class,'storeData']);
+// Route::any('endpoint/sriramhardware',[EnjayApiDataController::class,'storeData']);
+// Route::post('endpoint/sriramhardware/{fname?}/{lname?}',function($id=null,$i="Kumar"){
+//     return "Hii ". $id." ".$i ;
+// });
+
 
 
 
