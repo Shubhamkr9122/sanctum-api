@@ -9,6 +9,8 @@ class EnjayApiDataController extends Controller
 {
     public function storeData(Request $request){
         // return $request;
+        
+
 
         //using simple storing each data and save() method
         /*
@@ -47,23 +49,50 @@ class EnjayApiDataController extends Controller
         */
 
         //Using create() method
-        
+        /*
         $data = enjay_api_data::create([
-            'asteriskhost' => $request->asteriskhost,
-            'event' => $request->event,
-            'direction' => $request->direction,
-            'number' => $request->number,
-            'extension' => $request->extension,
-            'start_time' => $request->start_time,
-            'answer_time' => $request->answer_time,
-            'end_time' => $request->end_time,
-            'duration' => $request->duration,
-            'billablesecond' => $request->billablesecond,
-            'disposition' => $request->disposition,
-            'unique_id' => $request->unique_id,
-            'record_link' => $request->record_link,
-            'hangupchannel' => $request->hangupchannel,
-            'redirectchannel' => $request->redirectchannel
+            'asteriskhost' => $json_data->asteriskhost,
+            'event' => $json_data->event,
+            'direction' => $json_data->direction,
+            'number' => $json_data->number,
+            'extension' => $json_data->extension,
+            'start_time' => $json_data->start_time,
+            'answer_time' => $json_data->answer_time,
+            'end_time' => $json_data->end_time,
+            'duration' => $json_data->duration,
+            'billablesecond' => $json_data->billablesecond,
+            'disposition' => $json_data->disposition,
+            'unique_id' => $json_data->unique_id,
+            'record_link' => $json_data->record_link,
+            'hangupchannel' => $json_data->hangupchannel,
+            'redirectchannel' => $json_data->redirectchannel
+            // 'created_at' => time(),
+            // 'updated_at' => time(),
+        ]);
+        */
+
+        //When uek like http://127.0.0.1:8000/v1/endpoint/sriramhardware?eventdetails={"asteriskhost":"192.168.1.51"}
+
+        $request=  $request->eventdetails;
+        $json_data = json_decode($request,true);
+        
+
+        $data = enjay_api_data::create([
+            'asteriskhost' => $json_data['asteriskhost'],
+            'event' => $json_data['event'],
+            'direction' => $json_data['direction'],
+            'number' => $json_data['number'],
+            'extension' => $json_data['extension'],
+            'start_time' => $json_data['start_time'],
+            'answer_time' => $json_data['answer_time'],
+            'end_time' => $json_data['end_time'],
+            'duration' => $json_data['duration'],
+            'billablesecond' => $json_data['billablesecond'],
+            'disposition' => $json_data['disposition'],
+            'unique_id' => $json_data['unique_id'],
+            'record_link' => $json_data['record_link']
+            // 'hangupchannel' => $json_data['hangupchannel'],
+            // 'redirectchannel' => $json_data['redirectchannel']
             // 'created_at' => time(),
             // 'updated_at' => time(),
         ]);
